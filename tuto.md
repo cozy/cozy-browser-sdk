@@ -29,7 +29,7 @@ You can also find more information about cozy deployment in the following link:
 
 * [Package a serverless application](https://dev.cozy.io/#package-a-serverless-application-for-installation-into-your-cozy-platform)
 
-At the end of this step, your app should be similar to [this](https://github.com/lemelon/cozysdk-client-tuto/tree/1.0). 
+At the end of this step, your app should be similar to [this](https://github.com/lemelon/cozysdk-client-tuto/tree/v1.0). 
 
 ## Second step: Add AngularJS
 
@@ -101,7 +101,7 @@ The functions that we'll need are `send`, `update`, and `destroy`. These functio
 
 #### Source code
 
-You can find the source code for this step [here](https://github.com/lemelon/cozysdk-client-tuto)!
+You can find the source code for this step [here](https://github.com/lemelon/cozysdk-client-tuto/tree/v4.0)!
 
 #### What to keep in mind?
 
