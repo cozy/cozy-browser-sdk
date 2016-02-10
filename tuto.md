@@ -12,7 +12,7 @@ To see the fully working and finished version, you can go on this [github](https
 
 ## First step : Hello World !
 
-Here we are, doing the traditionnal "Hello World" app that can make you want to start a new career. So here's the [link](https://github.com/lemelon/cozysdk-client-tuto/tree/7b4c33ce8d1281edeb5a8017191a403ee820fde4). 
+Here we are, doing the traditionnal "Hello World" app that can make you want to start a new career. 
 
 Starting from an empty repository, you will need a few files : First, the manifest `package.json` with some fields
 - `name`, the name of your app (without space)
@@ -29,7 +29,7 @@ You can also find more information about cozy deployment in the following link:
 
 * [Package a serverless application](https://dev.cozy.io/#package-a-serverless-application-for-installation-into-your-cozy-platform)
 
-At the end of this step, your app should be similar to [this](https://github.com/lemelon/cozysdk-client-tuto/tree/7b4c33ce8d1281edeb5a8017191a403ee820fde4). 
+At the end of this step, your app should be similar to [this](https://github.com/lemelon/cozysdk-client-tuto/tree/1.0). 
 
 ## Second step: Add AngularJS
 
@@ -54,7 +54,7 @@ If you understand the skeleton and the main logic of this code, you basically un
 
 ### Source code
 
-You can find the source code for this step [here](https://github.com/lemelon/cozysdk-client-tuto/tree/973a898820625ae1e632994d94927edbc9b27e4e)!
+You can find the source code for this step [here](https://github.com/lemelon/cozysdk-client-tuto/tree/v2.0)!
 
 ## Third step: Get data from contacts app
 
@@ -83,7 +83,7 @@ We can also put a filter to show how simple it is to do it in angularjs, just fo
 
 ### Source code
 
-You can find the source code for this step [here](https://github.com/lemelon/cozysdk-client-tuto/tree/f3210da9e3b5e6053aa384557dcb1e952e0da45d)!
+You can find the source code for this step [here](https://github.com/lemelon/cozysdk-client-tuto/tree/v3.0)!
 
 ### So what happened?
 

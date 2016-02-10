@@ -169,8 +169,8 @@ This enables users to run a request defined by defineRequest(docType, name, requ
 * keys: [only returns document for this array of keys]
 * limit: number of documents to return
 * skip: number of documents to skip
-* startKey: only returns document after this key
-* endKey: only returns document before this key
+* startkey: only returns document after this key
+* endkey: only returns document before this key
 
 So for example `params` could look like this:
 
