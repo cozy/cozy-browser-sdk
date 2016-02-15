@@ -1,12 +1,12 @@
 # cozysdk-client
 
-SDK for cozy apps without a server.
+SDK for Cozy apps without a server.
 
-If you want to understand how to write apps without a server with cozy, you can also follow this [tutorial](https://github.com/lemelon/cozysdk-client/blob/master/tuto.md).
+If you want to understand how to write apps without a server with Cozy, you can also follow this [tutorial](https://github.com/lemelon/cozysdk-client/blob/master/tuto.md).
 
 ## What is it for?
 
-cozysdk-client is a javascript library made by cozy. It enables serverless applications to make requests to the data-system easily.
+cozysdk-client is a javascript library made by Cozy. It enables serverless applications to make requests to the data-system easily.
 
 ## Why this document?
 
@@ -24,7 +24,7 @@ This enables users to add a new item.
 
 In Cozy, to facilitate data organization, the documents are used via a `docType` field. This way It can simplify the requesting and organize rights access. 
 
-You need to enter `docType`, so for example if you want to define a request to get all the contacts, you'll have to add `Contacts` as a docType name. You also need to make sure that you added permissions in package.json like so:
+So for example if you want to define a request to get all the contacts, you'll have to add `Contacts` as a docType name. You also need to make sure that you added permissions in package.json like so:
 
 ```json
 "cozy-permissions": {
@@ -38,7 +38,7 @@ You need to enter `docType`, so for example if you want to define a request to g
 
 This is just an example but if you want to work with Emails for example, you'll just need to add `Message` as a cozy-permission and name it as a docType in the define function. 
 
-Also, in cozy, if the data-system doesn't recognize a docType name, it will create a new one and you'll be able to interact with it.
+Also, in Cozy, if the data-system doesn't recognize a docType name, it will create a new one and you'll be able to interact with it.
 
 #### What are `attributes`?
 
@@ -110,7 +110,7 @@ The second param is the name of the request you want to create. So for example, 
 
 #### What is `request`?
 
-The third param is the actual request to communicate with the cozy database. You need here to present the third params:
+The third param is the actual request to communicate with the Cozy database. You need here to present the third params:
 * Either as a string: `'function(doc) { emit(doc.n, null); }'`
 * Or you can put the function directly, like this: `function(doc) { emit(doc.n, null); }`
 * Or finally as an object with map and reduce:  `{map: "function(doc) { emit([doc.year, doc.month, doc.day], 1); }", reduce: "_sum"}`
@@ -133,7 +133,7 @@ Here you can easily customize your request and use it whenever you wish in your 
 
 #### A simple example
 
-Imagine you have a cozy database with contact records and you want a view of those records using the name of each user as keys. If so, you can easily do the following:
+Imagine you have a Cozy database with contact records and you want a view of those records using the name of each user as keys. If so, you can easily do the following:
 
 ```javascript
 defineRequest("Contact", "lastName", function(doc) {
