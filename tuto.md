@@ -1,8 +1,8 @@
 # cozysdk-client-tuto
 
-As a developer, do you believe it’s hard to use data from another application in your own or play with data from differing applications? Well I'm here to try to prove you can. With cozy you can do things you could'nt imagine: you'll be able to code an application without a server, and it can use data from all the apps on your cozy.
+As a developer, do you believe it’s hard to play with data from differing applications? Well I'm here to try to prove you can and even more: you'll be able to code an application without a server, and this application will be able to use data from all the apps on your Cozy.
 
-# Let's write a new contact application for cozy
+# Let's write a new contact application for Cozy
 
 Now, let's get serious and straight to the point: our goal is to build a serverless app which lists all names from the `Contact` app. It will also allow the user to create, update, and delete names.
 
@@ -18,14 +18,14 @@ Starting from an empty repository, you will need a few files : First, the manife
 - `name`, the name of your app (without space)
 - `displayName`, the user readable name
 - `description`, what the user will see when installing your app
-- `cozy-type: "static"`, which tells cozy your app doesnt need a server
+- `cozy-type: "static"`, which tells Cozy your app doesnt need a server
 - `icon-path`, a path to your app icon
 
 Also, an index.html file needs to be at the root of your repository with your 'Hello World' written in it.
 
 Once you have these, publish your app on github and you should be able to install it from the store on your cozy. If you managed to deploy it, congratulations! If not, don't worry, we're here to help you: the most easy way to contact us is by joining our [irc channel](http://irc.lc/freenode/cozycloud).
 
-You can also find more information about cozy deployment in the following link:
+You can also find more information about Cozy deployment in the following link:
 
 * [Package a serverless application](https://dev.cozy.io/#package-a-serverless-application-for-installation-into-your-cozy-platform)
 
@@ -58,11 +58,11 @@ You can find the source code for this step [here](https://github.com/lemelon/coz
 
 ## Third step: Get data from contacts app
 
-Now down to some serious business: we're ready to play with different cozy applications. We decided to interact with the "Contact" app but you can also do the same for any other application. Imagine what service you can propose to your future users. But for now, let's synchronize with contacts by getting all the names of the user contacts...
+Now down to some serious business: we're ready to play with different Cozy applications. We decided to interact with the "Contact" app but you can also do the same for any other application. Imagine what service you can propose to your future users. But for now, let's synchronize with contacts by getting all the names of the user contacts...
 
 ### Install the contact app from the store and create or import a few of your contacts
 
-To understand what we are doing here, you will need to have some contacts in your cozy database. If you haven't done so already, install the Cozy Contacts application from the store on your cozy and enter some contacts. You can import some contacts from google or insert new contacts manually.
+To understand what we are doing here, you will need to have some contacts in your Cozy database. If you haven't done so already, install the Cozy Contacts application from the store on your Cozy and enter some contacts. You can import some contacts from google or insert new contacts manually.
 
 #### Our objectives for this step
 
@@ -70,8 +70,8 @@ For this step, we'll have to get the list of all the names of the contact app. F
 
 You'll also need to import two files into your project:
 
-- [cozysdk-client.js](https://github.com/lemelon/cozysdk-client/blob/master/dist/cozysdk-client.js): this is a javascript cozy library that enables to do clean request to the data-system. You can access this [tutorial](https://github.com/lemelon/cozysdk-client/blob/master/api.md) to learn how to use it.
-- [cozysdk.angular.js](https://github.com/lemelon/cozysdk-client-tuto/blob/master/interfaces/cozysdk.angular.js): this is the cozy file that enables you to connect the logic of the cozysdk-client library with angularjs. It helps developers to work with organized code in angularjs.
+- [cozysdk-client.js](https://github.com/lemelon/cozysdk-client/blob/master/dist/cozysdk-client.js): this is a javascript Cozy library that enables to do clean request to the data-system. You can access this [tutorial](https://github.com/lemelon/cozysdk-client/blob/master/api.md) to learn how to use it.
+- [cozysdk.angular.js](https://github.com/lemelon/cozysdk-client-tuto/blob/master/interfaces/cozysdk.angular.js): this is the Cozy file that enables you to connect the logic of the cozysdk-client library with angularjs. It helps developers to work with organized code in angularjs.
 
 Both these files are optional, you could use `postMessage` to retrieve your app token and then do manual `XMLHttpRequest` calls against the [data-system api](https://docs.cozy.io/en/hack/cookbooks/data-system.html), but as the saying goes: ["do not reinvent the wheel"](https://en.wikipedia.org/wiki/Reinventing_the_wheel). So why do complicated when you can do simple?
 
@@ -109,6 +109,6 @@ So I've added four functions to the controller file : send, update, destroy, and
 
 ### Going further
 
-I think my role is complete. You now have the technical tool to develop serverless apps with angularjs on cozy. You can also acquire more skills on angularjs by googling it and seeing the enormous amount of tutorials on it. The challenge now will be to understand and meet the needs of a random cozy user. What new service can you offer this user, in order to simplify the managing of his or her data? You now know how to synchronise data from the different applications, so you'll need to go further and imagine what you can do with this knowledge.
+I think my role is complete. You now have the technical tool to develop serverless apps with angularjs on Cozy. You can also acquire more skills on angularjs by googling it and seeing the enormous amount of tutorials on it. The challenge now will be to understand and meet the needs of a random Cozy user. What new service can you offer this user, in order to simplify the managing of his or her data? You now know how to synchronise data from the different applications, so you'll need to go further and imagine what you can do with this knowledge.
 
-When your application is going to be able to change the life of all the cozy users, you can add it on [cozy-registry](https://github.com/cozy/cozy-registry) by making a pull request.
+When your application is going to be able to change the life of all the Cozy users, you can add it on [cozy-registry](https://github.com/cozy/cozy-registry) by making a pull request.
