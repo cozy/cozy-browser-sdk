@@ -78,7 +78,7 @@ This enables users to get data of a specific id.
 
 The response of this request will be a json object with the data of the used id.
 
-### `updateAttributes(docType, id, attributes)`
+### `updateAttributes(docType, id, attributes, callback)`
 
 This enables the user to update some fields of a document.
 
@@ -102,7 +102,7 @@ updateAttributes("Contact", [id of the document you want to update], {"n": "sam"
 
 This enables users to delete a specific document from the database.
 
-### `defineRequest(docType, name, request)`
+### `defineRequest(docType, name, request, callback)`
 
 #### What is `name`?
 
