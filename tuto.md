@@ -41,7 +41,7 @@ AngularJS is a Single Page Application (SPA) framework. If you don't have an ide
 
 AngularJS enables the user to easily create dynamic views. It's a very used SPA, so that's why it could be a beneficial learning tool.
 
-To get started with angular, we will need to include the angularJS library in our app and declare an entry to our application, by calling `ng-app="[the name of your app]"`. We'll also need to have a main module and setup the relation between the view (home.html) and the controller (Home.Ctrl.js). If you want some styleguides for proper angular structure and coding, we recommend the[Johnpapa's angular styleguide](https://github.com/johnpapa/angular-styleguide)
+To get started with angular, we will need to include the angularJS library in our app and declare an entry to our application, by calling `ng-app="[the name of your app]"`. We'll also need to have a main module and setup the relation between the view (home.html) and the controller (Home.Ctrl.js). If you want some styleguides for proper angular structure and coding, we recommend the [Johnpapa's angular styleguide](https://github.com/johnpapa/angular-styleguide)
 
 ### The skeleton
 
