@@ -1,27 +1,31 @@
 {
-  	"name": "cozysdk-client",
-  	"version": "0.0.1",
-  	"description": "SDK for serverless cozy apps",
-    "author": "Cozy Cloud <contact@cozycloud.cc> (https://cozy.io)",
-  	"license": "MIT",
-  	"homepage": "https://github.com/cozy/cozysdk-client",
-  	"repository": {
-  		"type": "git",
-  		"url": "http://github.com/cozy/cozysdk-client"
-  	},
-  	"bugs": {
-    	"url": "https://github.com/cozy/cozysdk-client/issues"
-  	},
-  	"main": "build/cozysdk-client.js",
-  	"scripts": {
-	    "build": "coffee -cb --output lib src && browserify lib/index.js --debug --s cozysdk | exorcist dist/cozysdk-client.js.map > dist/cozysdk-client.js ",
-	    "prepublish": "npm run build"
-  	},
-  	"devDependencies": {
-	    "coffee-jshint": "0.2.2",
-	    "coffee-script": "1.8.0",
-	    "coffeelint": "1.8.1",
-	    "browserify": "13.0.0",
-	    "exorcist": "0.4.0"
-  	}
+  "name": "cozysdk-client",
+  "version": "0.0.1",
+  "description": "SDK for serverless cozy apps",
+  "author": "Cozy Cloud <contact@cozycloud.cc> (https://cozy.io)",
+  "license": "MIT",
+  "homepage": "https://github.com/cozy/cozysdk-client",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/cozy/cozysdk-client"
+  },
+  "bugs": {
+    "url": "https://github.com/cozy/cozysdk-client/issues"
+  },
+  "main": "build/cozysdk-client.js",
+  "scripts": {
+    "build": "./node_modules/coffee-script/bin/coffee -cb --output lib src && browserify lib/index.js --debug --s cozysdk | exorcist dist/cozysdk-client.js.map > dist/cozysdk-client.js ",
+    "lint": "./node_modules/coffeelint/bin/coffeelint src/* src/utils/*",
+    "prepublish": "npm run build"
+  },
+  "devDependencies": {
+    "coffee-jshint": "0.2.2",
+    "coffee-script": "1.8.0",
+    "coffeelint": "1.8.1",
+    "browserify": "13.0.0",
+    "exorcist": "0.4.0"
+  },
+  "dependencies": {
+    "coffeelint": "^1.8.1"
+  }
 }

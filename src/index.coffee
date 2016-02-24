@@ -61,7 +61,8 @@ module.exports.find = (docType, id, callback) ->
         if error
             callback error
         else if response.status is 404
-            callback new Error "#{response.status} -- #{body.id} -- Error in finding object"
+            callback new Error \
+                "#{response.status} -- #{body.id} -- Error in finding object"
         else
             callback null, body
 
@@ -75,7 +76,8 @@ module.exports.updateAttributes = (docType, id, attributes, callback) ->
         else if response.status is 404
             callback new Error "Document #{id} not found"
         else if response.status isnt 200
-            callback new Error "#{response.status} -- #{body.id} -- Server error occured."
+            callback new Error \
+                "#{response.status} -- #{body.id} -- Server error occured."
         else
             callback null, JSON.parse body
 
@@ -88,7 +90,8 @@ module.exports.destroy = (docType, id, callback) ->
         else if response.status is 404
             callback new Error "Document #{id} not found"
         else if response.status isnt 204
-            callback new Error "#{response.status} -- #{id} -- Server error occured."
+            callback new Error \
+                "#{response.status} -- #{id} -- Server error occured."
         else
             callback null
 
