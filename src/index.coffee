@@ -141,3 +141,31 @@ module.exports.requestDestroy = (docType, name, params, callback) ->
         else
             callback null, body
 
+
+# Delete file linked to the document matching ID. Several binaries
+# can be attached to a document, so a name is required to know which file
+# should be deleted.
+module.exports.deleteFile = (id, name, callback) ->
+    path = "/data/:id/binaries/:name"
+    client.del path, {}, (error, response, body) ->
+        if error
+            callback error
+        else if response.status isnt 204
+            callback new Error "#{response.status} -- Server error occured."
+        else
+            callback null, body
+
+
+# Build file url for file linked to the document matching ID. Several binaries
+# can be attached to a document, so a name is required to know which file
+# should be retrieved.
+module.exports.getFileURL = (id, name, callback) ->
+    path = "/ds-api/data/#{id}/binaries/#{name}"
+    host = window.location.host
+    client.getToken (err, auth) ->
+        return callback err if err
+
+        auth = "#{auth.appName:auth.token}"
+        url = "#{window.location.protocol}//#{auth}@#{host}#{path}"
+        callback null, encodeURI(url)
+
