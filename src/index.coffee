@@ -109,3 +109,24 @@ module.exports.requestDestroy = (docType, name, params, callback) ->
             callback err
         else
             callback null, body
+
+module.exports.deleteFile = (id, name, callback) ->
+    path = "/data/:id/binaries/:name"
+    client.del path, {}, (error, response, body) ->
+        if error
+            callback error
+        else if response.status isnt 204
+            callback new Error "#{response.status} -- Server error occured."
+        else
+            callback null, body
+
+module.exports.getFileURL = (id, name, callback) ->
+    path = "/ds-api/data/#{id}/binaries/#{name}"
+    host = window.location.host
+    client.getToken (err, auth) ->
+        return callback err if err
+        
+        auth = auth.appName + ':' + auth.token
+        url = window.location.protocol + "//" + auth + "@" + host + path
+        callback null, encodeURI(url)
+

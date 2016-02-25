@@ -31,6 +31,8 @@ module.exports =
         playRequest 'DELETE', path, attributes, (error, response, body) ->
             callback error, response, body
 
+    getToken: getToken
+
 playRequest = (method, path, attributes, callback) ->
     
     getToken (err, auth) ->
