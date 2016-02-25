@@ -82,7 +82,7 @@ module.exports.updateAttributes = (docType, id, attributes, callback) ->
             callback null, JSON.parse body
 
 
-# Destryo the document that matches given doc type and given ID.
+# Destroy the document that matches given doc type and given ID.
 module.exports.destroy = (docType, id, callback) ->
     client.del "data/#{id}/", null, (error, response, body) ->
         if error
