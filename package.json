@@ -1,6 +1,6 @@
 {
   "name": "cozysdk-client",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "SDK for serverless cozy apps",
   "author": "Cozy Cloud <contact@cozycloud.cc> (https://cozy.io)",
   "license": "MIT",
@@ -22,7 +22,6 @@
     "coffeelint": "1.8.1",
     "coffee-jshint": "0.2.2",
     "coffee-script": "1.8.0",
-    "coffeelint": "1.8.1",
     "browserify": "13.0.0",
     "exorcist": "0.4.0"
   }
