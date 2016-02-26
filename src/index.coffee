@@ -165,7 +165,7 @@ module.exports.getFileURL = (id, name, callback) ->
     client.getToken (err, auth) ->
         return callback err if err
 
-        auth = "#{auth.appName:auth.token}"
+        auth = "#{auth.appName}:#{auth.token}"
         url = "#{window.location.protocol}//#{auth}@#{host}#{path}"
         callback null, encodeURI(url)
 
