@@ -64,7 +64,7 @@ module.exports.find = (docType, id, callback) ->
             callback new Error \
                 "#{response.status} -- #{body.id} -- Error in finding object"
         else
-            callback null, body
+            callback null, JSON.parse body
 
 
 # Update attributes of the document that matches given doc type and given ID.
@@ -84,7 +84,7 @@ module.exports.updateAttributes = (docType, id, attributes, callback) ->
 
 # Destroy the document that matches given doc type and given ID.
 module.exports.destroy = (docType, id, callback) ->
-    client.del "data/#{id}/", null, (error, response, body) ->
+    client.del "data/#{id}/", null, (error, response) ->
         if error
             callback error
         else if response.status is 404
@@ -117,7 +117,7 @@ module.exports.run = (docType, name, params, callback) ->
             callback new Error "#{response.status} -- Server error occured."
 
         else
-            callback null, body
+            callback null, JSON.parse body
 
 
 # Destroy every documents matching the results of request matching given name
@@ -133,7 +133,7 @@ module.exports.requestDestroy = (docType, name, params, callback) ->
             return error
 
         else if response.status isnt 204
-            msgStatus = "expected: #{expectedCode}, got: #{response.status}"
+            msgStatus = "expected: 204, got: #{response.status}"
             err = new Error "#{msgStatus} -- #{body.error} -- #{body.reason}"
             err.status = response.status
             callback err
@@ -168,4 +168,3 @@ module.exports.getFileURL = (id, name, callback) ->
         auth = "#{auth.appName}:#{auth.token}"
         url = "#{window.location.protocol}//#{auth}@#{host}#{path}"
         callback null, encodeURI(url)
-
