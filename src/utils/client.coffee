@@ -31,7 +31,7 @@ playRequest = (method, path, attributes, callback) ->
             callback null, xhr, xhr.response
 
         xhr.onerror = (e) ->
-            err = 'Request failed : #{e.target.status}'
+            err = "Request failed : #{e.target.status}"
             callback err
 
         xhr.setRequestHeader 'Content-Type', 'application/json'
@@ -71,4 +71,3 @@ module.exports =
             callback error, response, body
 
     getToken: getToken
-
