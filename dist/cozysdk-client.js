@@ -137,9 +137,26 @@ module.exports.requestDestroy = function(docType, name, params, callback) {
   });
 };
 
+module.exports.convertToBinaries = function(id, name, callback) {
+  var path;
+  path = "data/" + id + "/binaries/convert";
+  if (name) {
+    path = path + ("/" + name);
+  }
+  return client.get(path, {}, function(error, response, body) {
+    if (error) {
+      return callback(error);
+    } else if (response.status !== 200) {
+      return callback(new Error("" + response.status + " -- Server error occured."));
+    } else {
+      return callback(null, body);
+    }
+  });
+};
+
 module.exports.deleteFile = function(id, name, callback) {
   var path;
-  path = "/data/:id/binaries/:name";
+  path = "data/" + id + "/binaries/" + name;
   return client.del(path, {}, function(error, response, body) {
     if (error) {
       return callback(error);
@@ -160,8 +177,8 @@ module.exports.getFileURL = function(id, name, callback) {
     if (err) {
       return callback(err);
     }
-    auth = "" + auth.appName + ":" + auth.token;
-    url = "" + window.location.protocol + "//" + auth + "@" + host + path;
+    auth = "Basic " + btoa("" + auth.appName + ":" + auth.token);
+    url = "" + window.location.protocol + "//" + host + path + "?authorization=" + auth;
     return callback(null, encodeURI(url));
   });
 };

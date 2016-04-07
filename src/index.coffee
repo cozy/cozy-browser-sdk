@@ -142,11 +142,24 @@ module.exports.requestDestroy = (docType, name, params, callback) ->
             callback null, body
 
 
+# Convert an attachment into a binary. Return the binary id
+module.exports.convertToBinaries = (id, name, callback) ->
+    path = "data/#{id}/binaries/convert"
+    path = "#{path}/#{name}" if name
+    client.get path, {}, (error, response, body) ->
+        if error
+            callback error
+        else if response.status isnt 200
+            callback new Error "#{response.status} -- Server error occured."
+        else
+            callback null, body
+
+
 # Delete file linked to the document matching ID. Several binaries
 # can be attached to a document, so a name is required to know which file
 # should be deleted.
 module.exports.deleteFile = (id, name, callback) ->
-    path = "/data/:id/binaries/:name"
+    path = "data/#{id}/binaries/#{name}"
     client.del path, {}, (error, response, body) ->
         if error
             callback error
