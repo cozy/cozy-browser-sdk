@@ -17,6 +17,9 @@ You can emit 0, 1 or N times for each doc.
 cozysdk.defineMapReduceView('doctype', 'bydate', function (){
     emit(doc.date, doc);
 });
+```
+and then,
+```javascript
 cozysdk.queryView('doctype', 'bydate', {});
 // will give you all documents for this docType sorted by date.
 ```
