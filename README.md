@@ -1,20 +1,22 @@
 # cozy-browser-sdk
 
-SDK for Cozy apps without a server.
+This document covers the API documentation of the SDK for Cozy apps without a
+server.
 
-If you want to understand how to write apps without a server with Cozy, you can also follow this [tutorial](https://dev.cozy.io/clientsideapp.html).
+Disclaimer: This is not a tutorial to write Cozy application, if you want to understand how to write apps without a server with Cozy, you can read this [tutorial](https://dev.cozy.io/clientsideapp.html).
 
 ## What is it for?
 
-`cozy-browser-sdk` is a javascript library made by Cozy. It enables clien-side  applications to make requests to the data-system easily.
+`cozy-browser-sdk` is a javascript library made by Cozy. It enables client-side  applications to easily make requests to the data-system. The Data-system is the data
+storage API of the Cozy.
 
-## How do I use it ?
+## How to use it?
 
-Just copy the file `dist/cozysdk-client.js` file to your app repository. You can then `require` it using any build tool or include it in your html page through a `<script>` tag.
+You just have to copy a single file (`dist/cozysdk-client.js`) to your app repository. You can then `require` it by using any build tool or include it in your html page through a `<script>` tag.
 
-You should probably follow this [tutorial](https://dev.cozy.io/clientsideapp.html).
+We recommend you to follow this [tutorial](https://dev.cozy.io/clientsideapp.html) to setup the Cozy SDK tutorial properly.
 
-## What can it do ?
+## What can it do?
 
 - Create, Read, Update, Delete documents ([tuto](http://cozy.github.io/cozy-browser-sdk/tutorial-doctype.html))
   - [cozysdk.create](http://cozy.github.io/cozy-browser-sdk/module-crud.html#.create)
@@ -27,7 +29,7 @@ You should probably follow this [tutorial](https://dev.cozy.io/clientsideapp.htm
   - [cozysdk.queryView](http://cozy.github.io/cozy-browser-sdk/module-mapreduce.html#.queryView)
   - [cozysdk.destroyByView](http://cozy.github.io/cozy-browser-sdk/module-mapreduce.html#.destroyByView)
 
-- Read and Destroy binaries attachment to documents
+- Read and Destroy binaries attached to Cozy documents
   - [cozysdk.getBinaryURL](http://cozy.github.io/cozy-browser-sdk/module-binaries.html#.getBinaryURL)
   - [cozysdk.removeBinary](http://cozy.github.io/cozy-browser-sdk/module-binaries.html#.removeBinary)
 

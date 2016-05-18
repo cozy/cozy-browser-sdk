@@ -6,8 +6,9 @@ promiser = require './utils/promiser'
 
  Binaries can be attached to a document.
  Attaching binaries is not supported in cozysdk for browser, if your
- application needs to create document with binaries, you will need to create
- a full node.js application.
+ application needs to create document with binaries, add +1 to the
+ <a href="https://github.com/cozy/cozy-browser-sdk/issues/14">Github ticket</a>
+ related to this feature.
 
  @module binaries
 ###
@@ -46,6 +47,8 @@ module.exports.removeBinary = promiser (docType, id, name, callback) ->
 Build file url for file linked to the document matching ID. Several binaries
 can be attached to a document, so a name is required to know which file
 should be retrieved.
+It's useful when you want to retrieve a file from the file application or a
+picture from the photo app.
 
 @function
 
@@ -57,6 +60,7 @@ should be retrieved.
 @example <caption>callback</caption>
 cozysdk.getBinaryURL('Note', '524noteid452', 'image.jpg', function(err, url){
     img.src = url
+    // url = 'https://your.cozy.cloud/ds-api/524noteid542/binaries/image.jpg?=token=zdkgzerozernxwxoicvh'
 });
 @example <caption>promise</caption>
 cozysdk.getBinaryURL('Note', '524noteid452', 'image.jpg')

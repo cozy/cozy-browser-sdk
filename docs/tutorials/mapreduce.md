@@ -12,16 +12,20 @@ This (key, value) pair is called an entry.
 The entry are stored sorted by key in an index.
 You can emit 0, 1 or N times for each doc.
 
-#### I just want to sort
+#### I just want to sort notes by date
+
+First, define your view (you can see it as a query where each result is indexed,
+that's why we need to declare it before using it):
+
 ```javascript
-cozysdk.defineMapReduceView('doctype', 'bydate', function (){
+cozysdk.defineMapReduceView('Note', 'bydate', function (){
     emit(doc.date, doc);
 });
 ```
-and then,
+And then we can query the view:
 ```javascript
 cozysdk.queryView('doctype', 'bydate', {});
-// will give you all documents for this docType sorted by date.
+// It will give you all documents for your doc type (here Note) sorted by date.
 ```
 
 
@@ -82,21 +86,30 @@ cozysdk.queryView('doctype', 'myview', {key: "tagb"})
 //-> {key: 'tagb', value: 8, id: 'doc2'}
 ```
 
-If you pass no parameters, you will get every entries for this view.
+**Key filtering**
 
-To get entries for several keys at once, we can use the **keys** parameter.
-To get entries for a range of keys, we can use the **startkey** & **endkey** parameters.
+* If you pass no parameters, you will get every entries for this view.
+* To get entries for several keys at once, we can use the **keys** parameter.
+* To get entries for a range of keys, we can use the **startkey** & **endkey** parameters.
+
+
+**Key sorting**
 
 To reverse the sorting order, use the **descending** query params. Beware, that **startkey** and **endkey** will need to be reversed.
 
+**Pagination**
+
+You can use the **skip** parameters to discard some results from the beginning
+and **limit** to discard some results from the end. It is however cleaner to
+paginate using **startkey** and **endkey**.
+
+**Returned values**
+
 By default, query only returns key and values. You can use the **include_docs** parameter to include the documents with the results.
 
-You can use the **skip** parameters to discard some results from the beginning and **limit** to discard some results from the end. It is however cleaner to paginate using **startkey** and **endkey**
-
+**Destroy**
 
 You can replace queryView by  {@link module:mapreduce.destroyByView destroyByView} to destroy documents instead of retrieving them.
-
-## Reduce function
 
 ## Some SQL equivalents
 
@@ -111,23 +124,31 @@ query  {"startkey": ["john"], "endkey": ["john", {}]}
 
 ## Troubleshooting
 
-### Map & Reduce functions are executed in couchdb server.
+**Map & Reduce functions are executed in couchdb server.**
 
 They can't use a function from outside of themselves. Inline all tools you may
 need.
 
 **BAD**
 ```
-function isPair(x) {}
+function isPair(x) { return x % 2; }
 var map = function (doc){
     if(isPair(doc.field) emit(doc.id)
 }
 cozysdk.defineMapReduceView('doctype', 'pair', map)
 ```
 
-### Map & Reduce functions can be applied to weird documents
+**GOOD**
+```
+var map = function (doc){
+    if(doc.field % 2) emit(doc.id)
+}
+cozysdk.defineMapReduceView('doctype', 'pair', map)
+```
 
-Beware of null pointers.
+**Map & Reduce functions can be applied to weird documents.**
 
-**BAD** : `emit(doc.field.info)`
-**GOOD**: `if(doc.field) emit(doc.field.info)`
+Beware of null pointers, it may make the view crash.
+
+* **BAD** : `emit(doc.field.info)`
+* **GOOD**: `if(doc.field) emit(doc.field.info)`

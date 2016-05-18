@@ -4,6 +4,7 @@ promiser = require './utils/promiser'
 ###*
  <h2>Cozysdk CRUD functions</h2>
 
+They are basic functions to manipulate data documents from the Cozy:
 <ul>
 <li>Create a document [cozysdk.create]{@link module:crud.create }</li>
 <li>Find a document [cozysdk.find]{@link module:crud.find }</li>
@@ -24,7 +25,7 @@ in the attributes object.
 
 @function
 @arg {string} docType - The doctype you want to create.
-@arg {Object} attributes - The attributes your document should have.
+@arg {object} attributes - The attributes your document should have.
 @arg {callback} [callback] - A node.js style callback
 
 @example <caption>callback</caption>
@@ -54,7 +55,7 @@ module.exports.create = promiser (docType, attributes, callback) ->
 Retrieve a document by its ID.
 
 @function
-@arg {string} docType - The doctype you want to create.
+@arg {string} docType - The doctype you want to retrieve.
 @arg {string} id - The id of the document you want to retrieve.
 @arg {callback} [callback] - A node.js style callback
 
@@ -80,7 +81,7 @@ Update attributes of the document that matches given doc type and given ID..
 @function
 @arg {string} docType - The doctype of the document you want to change.
 @arg {string} id - The id of the document you want to change.
-@arg {Object} attrs - The changes you want to make.
+@arg {object} attrs - The changes you want to make.
 @arg {callback} [callback] - A node.js style callback
 
 @example <caption>callback</caption>
