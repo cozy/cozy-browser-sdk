@@ -60,7 +60,8 @@ picture from the photo app.
 @example <caption>callback</caption>
 cozysdk.getBinaryURL('Note', '524noteid452', 'image.jpg', function(err, url){
     img.src = url
-    // url = 'https://your.cozy.cloud/ds-api/524noteid542/binaries/image.jpg?=token=zdkgzerozernxwxoicvh'
+    // url = 'https://your.cozy.cloud/ds-api/524noteid542/binaries/...
+    //                                ...image.jpg?=token=zdkgzerozernxwxoicvh'
 });
 @example <caption>promise</caption>
 cozysdk.getBinaryURL('Note', '524noteid452', 'image.jpg')
