@@ -15,12 +15,12 @@
   "main": "dist/cozysdk-client.js",
   "scripts": {
     "build:coffee": "./node_modules/.bin/coffee -cb --output lib src",
-    "build:doc": "jsdoc -c jsdoc.json lib/*.js --destination dist/docs",
+    "build:doc": "jsdoc -c jsdoc.json lib/*.js --readme README.md --destination dist/docs",
     "build:browserify": "browserify lib/index.js --debug --s cozysdk | exorcist dist/cozysdk-client.js.map > dist/cozysdk-client.js ",
     "build": "npm run lint && run-s build:coffee build:browserify build:doc ",
     "lint": "./node_modules/.bin/coffeelint src/* src/utils/*",
-    "publish:doc": "git subtree push",
-    "prepublish": "npm run build && npm run publish:doc",
+    "publish:doc": "git add -f dist/docs && git commit -m doc && git subtree split --prefix=dist/docs -b gh-pages && git push -f cozy gh-pages:gh-pages && git branch -D gh-pages && git reset HEAD~1",
+    "prepublish": "npm run build",
     "postpublish": "npm run publish:doc"
   },
   "devDependencies": {
