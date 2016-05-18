@@ -14,15 +14,22 @@
   },
   "main": "dist/cozysdk-client.js",
   "scripts": {
-    "build": "./node_modules/.bin/coffee -cb --output lib src && browserify lib/index.js --debug --s cozysdk | exorcist dist/cozysdk-client.js.map > dist/cozysdk-client.js ",
+    "build:coffee": "./node_modules/.bin/coffee -cb --output lib src",
+    "build:doc": "jsdoc -c jsdoc.json lib/*.js --destination dist/docs",
+    "build:browserify": "browserify lib/index.js --debug --s cozysdk | exorcist dist/cozysdk-client.js.map > dist/cozysdk-client.js ",
+    "build": "npm run lint && run-s build:coffee build:browserify build:doc ",
     "lint": "./node_modules/.bin/coffeelint src/* src/utils/*",
-    "prepublish": "npm run build"
+    "publish:doc": "git subtree push",
+    "prepublish": "npm run build && npm run publish:doc",
+    "postpublish": "npm run publish:doc"
   },
   "devDependencies": {
     "browserify": "13.0.0",
     "coffee-jshint": "0.2.2",
     "coffee-script": "1.8.0",
-    "coffeelint": "1.8.1",
-    "exorcist": "^0.4.0"
+    "coffeelint": "1.15.7",
+    "exorcist": "0.4.0",
+    "jsdoc": "3.4.0",
+    "minami": "1.1.1"
   }
 }

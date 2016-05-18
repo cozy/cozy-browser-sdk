@@ -2,3 +2,4 @@ lib
 *.swp
 *.log
 node_modules
+dist/docs

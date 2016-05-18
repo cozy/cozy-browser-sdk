@@ -1,0 +1,16 @@
+{
+    "opts": {
+        "template": "node_modules/minami",
+        "destination": "dist/docs",
+        "tutorials": "docs/tutorials"
+    },
+    "source": {
+        "includePattern": ".+\\.js(doc)?$",
+        "excludePattern": "index"
+    },
+    "templates": {
+        "default": {
+            "outputSourceFiles": false
+        }
+    }
+}
