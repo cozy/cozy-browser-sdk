@@ -12,8 +12,9 @@ promiser = require('./utils/promiser');
 
  Binaries can be attached to a document.
  Attaching binaries is not supported in cozysdk for browser, if your
- application needs to create document with binaries, you will need to create
- a full node.js application.
+ application needs to create document with binaries, add +1 to the
+ <a href="https://github.com/cozy/cozy-browser-sdk/issues/14">Github ticket</a>
+ related to this feature.
 
  @module binaries
  */
@@ -58,6 +59,8 @@ module.exports.removeBinary = promiser(function(docType, id, name, callback) {
 Build file url for file linked to the document matching ID. Several binaries
 can be attached to a document, so a name is required to know which file
 should be retrieved.
+It's useful when you want to retrieve a file from the file application or a
+picture from the photo app.
 
 @function
 
@@ -69,6 +72,8 @@ should be retrieved.
 @example <caption>callback</caption>
 cozysdk.getBinaryURL('Note', '524noteid452', 'image.jpg', function(err, url){
     img.src = url
+    // url = 'https://your.cozy.cloud/ds-api/524noteid542/binaries/...
+    //                                ...image.jpg?=token=zdkgzerozernxwxoicvh'
 });
 @example <caption>promise</caption>
 cozysdk.getBinaryURL('Note', '524noteid452', 'image.jpg')
@@ -102,6 +107,7 @@ promiser = require('./utils/promiser');
 /**
  <h2>Cozysdk CRUD functions</h2>
 
+They are basic functions to manipulate data documents from the Cozy:
 <ul>
 <li>Create a document [cozysdk.create]{@link module:crud.create }</li>
 <li>Find a document [cozysdk.find]{@link module:crud.find }</li>
@@ -122,7 +128,7 @@ in the attributes object.
 
 @function
 @arg {string} docType - The doctype you want to create.
-@arg {Object} attributes - The attributes your document should have.
+@arg {object} attributes - The attributes your document should have.
 @arg {callback} [callback] - A node.js style callback
 
 @example <caption>callback</caption>
@@ -155,7 +161,7 @@ module.exports.create = promiser(function(docType, attributes, callback) {
 Retrieve a document by its ID.
 
 @function
-@arg {string} docType - The doctype you want to create.
+@arg {string} docType - The doctype you want to retrieve.
 @arg {string} id - The id of the document you want to retrieve.
 @arg {callback} [callback] - A node.js style callback
 
@@ -184,7 +190,7 @@ Update attributes of the document that matches given doc type and given ID..
 @function
 @arg {string} docType - The doctype of the document you want to change.
 @arg {string} id - The id of the document you want to change.
-@arg {Object} attrs - The changes you want to make.
+@arg {object} attrs - The changes you want to make.
 @arg {callback} [callback] - A node.js style callback
 
 @example <caption>callback</caption>
@@ -349,12 +355,9 @@ Define a map/reduce request for a given doc type.
 
 @arg {string} docType - The doctype you want to create a view on.
 @arg {string} name - The name of the view to create.
-@arg {string|Function|Object} request - The request to define. it can either be
+@arg {string|function|object} request - The request to define. it can either be
         a function, a string (function.toString()) or an object with
         map & reduce attributes.
-@arg {Function} request._ - A map function, taking doc as parameter.
-@arg {String} request._ - The same function as a string (.toString)
-@arg {Object} request._ - An object with both map & reduce functions.
 @arg {callback} [callback] - A node.js style callback
 
 @warning Your app needs the permission on the doctype passed as argument.
@@ -411,32 +414,32 @@ It accepts CouchDB like params.
 
 @arg {string} docType - The doctype you want to query a view on.
 @arg {string} name - The name of the view to query.
-@arg {Object} params - The query parameters.
-@param {mixed} [params.key] - get all entries with this key
-@param {mixed[]} [params.keys] - get all entries with one of these keys
-@param {mixed} [params.startkey] - get all entries with key greater than this
+@arg {object} params - The query parameters.
+@param {mixed} [params.key] - Get all entries with this key
+@param {mixed[]} [params.keys] - Get all entries with one of these keys
+@param {mixed} [params.startkey] - Get all entries with key greater than this
         value
-@param {String} [params.startkey_docid] - document id to start with (to allow
+@param {string} [params.startkey_docid] - Document id to start with (to allow
         pagination for duplicate startkeys)
-@param {mixed} [params.endkey] - get all entries with key lesser than this value
-@param {String} [params.endkey_docid] - last document id to include in the
+@param {mixed} [params.endkey] - Get all entries with key lesser than this value
+@param {string} [params.endkey_docid] - Last document id to include in the
         output (to allow pagination for duplicate endkeys)
-@param {Number} [params.limit=Infinity] - Limit the number of documents in
+@param {number} [params.limit=Infinity] - Limit the number of documents in
         the output
-@param {Number} [params.skip=0] - skip n number of documents
-@param {Boolean} [params.descending=false] - change the direction of search
-@param {Boolean} [params.group=false] - The group option controls whether
+@param {number} [params.skip=0] - Skip n number of documents
+@param {boolean} [params.descending=false] - Change the direction of search
+@param {boolean} [params.group=false] - The group option controls whether
         the reduce function reduces to a set of distinct keys or to a single
         result row.
-@param {Number} [params.group_level] - see below
-@param {Boolean} [params.reduce=true] - use the reduce function of the view.
+@param {number} [params.group_level] - See below
+@param {boolean} [params.reduce=true] - Use the reduce function of the view.
         It defaults to true, if a reduce function is defined and to false
         otherwise.
-@param {Boolean} [params.include_docs=false] - automatically fetch and include
+@param {boolean} [params.include_docs=false] - Automatically fetch and include
         the document which emitted each view entry
-@param {Boolean} [params.inclusive_end=true] - Controls whether the endkey is
+@param {boolean} [params.inclusive_end=true] - Controls whether the endkey is
         included in the result. It defaults to true.
-@param {Boolean} [params.update_seq=] - Response includes an update_seq value
+@param {boolean} [params.update_seq=] - Response includes an update_seq value
         indicating which sequence id of the database the view reflects
 @arg {callback} [callback] - A node.js style callback
 
@@ -477,9 +480,9 @@ It accepts CouchDB like params.
 @function
 @arg {string} docType - The doctype you want to query a view on.
 @arg {string} name - The name of the view to query.
-@arg {Object} params - The same query parameters than
+@arg {object} params - The same query parameters than
         [queryView]{@link module:mapreduce.queryView}.
-@arg {Object} params.limit - <strong>Warning</strong> The limit param is
+@arg {object} params.limit - <strong>Warning</strong> The limit param is
         ignored for deletion.
 @arg {callback} [callback] - A node.js style callback
 
