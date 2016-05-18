@@ -12,15 +12,27 @@ This (key, value) pair is called an entry.
 The entry are stored sorted by key in an index.
 You can emit 0, 1 or N times for each doc.
 
-#### Example
+#### I just want to sort
+```javascript
+cozysdk.defineMapReduceView('doctype', 'bydate', function (){
+    emit(doc.date, doc);
+});
+cozysdk.queryView('doctype', 'bydate', {});
+// will give you all documents for this docType sorted by date.
+```
+
+
+#### More complex example
 ```javascript
 cozysdk.defineMapReduceView('doctype', 'myview', function complexMap(){
     // oscar doesnt want to be included
     if(!doc.owner == 'oscar') {
-        // note : this is not safe, see Troubleshooting below
-        doc.tags.forEach(function(tag){
-            // the emit(key, value) function fill up couchdb index
-            emit(tag.toLowerCase(), doc.someValue);
+        // always be careful : docs may not have all the fields you expect.
+        if(doc.tags && doc.tags.forEach){
+            doc.tags.forEach(function(tag){
+                // the emit(key, value) function fill up couchdb index
+                emit(tag.toLowerCase(), doc.someValue);
+            }
         }
     }
 });
@@ -79,7 +91,7 @@ By default, query only returns key and values. You can use the **include_docs** 
 You can use the **skip** parameters to discard some results from the beginning and **limit** to discard some results from the end. It is however cleaner to paginate using **startkey** and **endkey**
 
 
-You can replace queryView by  {@link module:mapreduce.destroyByView destroyByView} to destroy documents instead of retrieving them. 
+You can replace queryView by  {@link module:mapreduce.destroyByView destroyByView} to destroy documents instead of retrieving them.
 
 ## Reduce function
 
