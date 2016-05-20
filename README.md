@@ -12,7 +12,7 @@ storage API of the Cozy.
 
 ## How to use it?
 
-You just have to copy a single file (`dist/cozysdk-client.js`) to your app repository. You can then `require` it by using any build tool or include it in your html page through a `<script>` tag.
+You just have to copy a single file ([dist/cozysdk-client.js](https://github.com/cozy/cozy-browser-sdk/tree/master/dist)) to your app repository. You can then `require` it by using any build tool or include it in your html page through a `<script>` tag.
 
 We recommend you to follow this [tutorial](https://dev.cozy.io/clientsideapp.html) to setup the Cozy SDK tutorial properly.
 
