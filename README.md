@@ -1,6 +1,6 @@
 # cozy-browser-sdk
 
-This document covers the API documentation of the SDK for Cozy apps without a
+[This document](https://cozy.github.io/cozy-browser-sdk/index.html) covers the API documentation of the SDK for Cozy apps without a
 server.
 
 Disclaimer: This is not a tutorial to write Cozy application, if you want to understand how to write apps without a server with Cozy, you can read this [tutorial](https://dev.cozy.io/clientsideapp.html).
