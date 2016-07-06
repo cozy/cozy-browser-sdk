@@ -126,7 +126,7 @@ cozysdk.queryView('Note', 'byTitle', params, function(err){
 params = {startkey 'A', endkey: 'B'}
 cozysdk.queryView('Note', 'byTitle', params)
 ###
-module.exports.queryView = (docType, name, params, callback) ->
+module.exports.queryView = promiser (docType, name, params, callback) ->
     [params, callback] = [{}, params] if typeof(params) is 'function'
 
     path = "request/#{docType}/#{name.toLowerCase()}/"
@@ -165,7 +165,7 @@ cozysdk.destroyByView('Note', 'byTitle', params, function(err){
 params = {startkey 'A', endkey: 'B'}
 cozysdk.destroyByView('Note', 'byTitle', params)
 ###
-module.exports.destroyByView = (docType, name, params, callback) ->
+module.exports.destroyByView = promiser (docType, name, params, callback) ->
 
     [params, callback] = [{}, params] if typeof(params) is 'function'
 
