@@ -14,6 +14,46 @@ promiser = require './utils/promiser'
 ###
 
 ###*
+Create a binary linked to the document matching ID. Several binaries
+can be attached to a document, so a name is required to distinguish them.
+
+@function
+
+@arg {string} docType - The docType of the document to add a binary from.
+@arg {string} id - The id of the document to add a binary from.
+@arg {object} file - An object containing either the binary to create or an URL.
+@arg {string} [name] - The name of the binary attached. (filename by default)
+@arg {callback} [callback] - A node.js style callback
+
+@example <caption>fromURL</caption>
+cozysdk.addBinary('File', 524fileid452, { fromURL: 'http://...' }, 'file')
+
+@example <caption>fromBinary</caption>
+cozysdk.addBinary('File', 524fileid452, { fromBinary: blob }, 'file')
+###
+module.exports.addBinary = promiser (docType, id, file, name, callback) ->
+    path = "/data/" + id + "/binaries/"
+    formData = new FormData()
+
+    if not callback?
+        callback = name
+    else
+        formData.append('name', name)
+
+    if file.fromBinary?
+        formData.append('file', file.fromBinary)
+    else if file.fromURL?
+        formData.append('fromURL', file.fromURL)
+
+    client.post path, formData, (error, response, body) ->
+        if error
+            callback error
+        else if response.status isnt 201
+            callback new Error "#{response.status} -- Server error occured."
+        else
+            callback null, body
+
+###*
 Delete binary linked to the document matching ID. Several binaries
 can be attached to a document, so a name is required to know which file
 should be deleted.

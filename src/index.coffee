@@ -21,8 +21,10 @@ cozysdk.destroyByView = requests.destroyByView
 ###*
  Binaries Management
 ###
+cozysdk.addBinary = binaries.addBinary
 cozysdk.destroyBinary = binaries.deleteBinary
 cozysdk.getBinaryURL = binaries.getBinaryURL
+
 
 # retrocompatibility
 cozysdk.defineRequest = requests.defineMapReduceView
