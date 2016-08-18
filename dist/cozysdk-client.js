@@ -21,6 +21,51 @@ promiser = require('./utils/promiser');
 
 
 /**
+Create a binary linked to the document matching ID. Several binaries
+can be attached to a document, so a name is required to distinguish them.
+
+@function
+
+@arg {string} docType - The docType of the document to add a binary from.
+@arg {string} id - The id of the document to add a binary from.
+@arg {object} file - An object containing either the binary to create or an URL.
+@arg {string} [name] - The name of the binary attached. (filename by default)
+@arg {callback} [callback] - A node.js style callback
+
+@example <caption>fromURL</caption>
+cozysdk.addBinary('File', 524fileid452, { fromURL: 'http://...' }, 'file')
+
+@example <caption>fromBinary</caption>
+cozysdk.addBinary('File', 524fileid452, { fromBinary: blob }, 'file')
+ */
+
+module.exports.addBinary = promiser(function(docType, id, file, name, callback) {
+  var formData, path;
+  path = "/data/" + id + "/binaries/";
+  formData = new FormData();
+  if (callback == null) {
+    callback = name;
+  } else {
+    formData.append('name', name);
+  }
+  if (file.fromBinary != null) {
+    formData.append('file', file.fromBinary);
+  } else if (file.fromURL != null) {
+    formData.append('fromURL', file.fromURL);
+  }
+  return client.post(path, formData, function(error, response, body) {
+    if (error) {
+      return callback(error);
+    } else if (response.status !== 201) {
+      return callback(new Error("" + response.status + " -- Server error occured."));
+    } else {
+      return callback(null, body);
+    }
+  });
+});
+
+
+/**
 Delete binary linked to the document matching ID. Several binaries
 can be attached to a document, so a name is required to know which file
 should be deleted.
@@ -302,6 +347,8 @@ cozysdk.destroyByView = requests.destroyByView;
  Binaries Management
  */
 
+cozysdk.addBinary = binaries.addBinary;
+
 cozysdk.destroyBinary = binaries.deleteBinary;
 
 cozysdk.getBinaryURL = binaries.getBinaryURL;
@@ -562,10 +609,12 @@ playRequest = function(method, path, attributes, callback) {
       err = "Request failed : " + e.target.status;
       return callback(err);
     };
-    xhr.setRequestHeader('Content-Type', 'application/json');
     basicHeader = "Basic " + (btoa(auth.appName + ':' + auth.token));
     xhr.setRequestHeader('Authorization', basicHeader);
-    if (attributes != null) {
+    if ((attributes != null) && attributes instanceof FormData) {
+      return xhr.send(attributes);
+    } else if (attributes) {
+      xhr.setRequestHeader('Content-Type', 'application/json');
       return xhr.send(JSON.stringify(attributes));
     } else {
       return xhr.send();
