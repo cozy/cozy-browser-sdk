@@ -34,11 +34,13 @@ playRequest = (method, path, attributes, callback) ->
             err = "Request failed : #{e.target.status}"
             callback err
 
-        xhr.setRequestHeader 'Content-Type', 'application/json'
         basicHeader = "Basic #{btoa(auth.appName + ':' + auth.token)}"
         xhr.setRequestHeader 'Authorization', basicHeader
 
-        if attributes?
+        if attributes? and attributes instanceof FormData
+            xhr.send attributes
+        else if attributes
+            xhr.setRequestHeader 'Content-Type', 'application/json'
             xhr.send JSON.stringify attributes
         else
             xhr.send()
