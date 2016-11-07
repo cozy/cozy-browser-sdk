@@ -16,6 +16,11 @@ You just have to copy a single file ([dist/cozysdk-client.js](https://github.com
 
 We recommend you to follow this [tutorial](https://dev.cozy.io/clientsideapp.html) to setup the Cozy SDK tutorial properly.
 
+You can also use `npm` (`npm install cozysdk-client`) and then `require` it from your JS file:
+```js
+var cozySDK = require('cozysdk-client');
+```
+
 ## What can it do?
 
 - Create, Read, Update, Delete documents ([tuto](http://cozy.github.io/cozy-browser-sdk/tutorial-doctype.html))
