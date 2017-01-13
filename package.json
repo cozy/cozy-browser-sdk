@@ -1,6 +1,6 @@
 {
   "name": "cozysdk-client",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "SDK for serverless cozy apps",
   "author": "Cozy Cloud <contact@cozycloud.cc> (https://cozy.io)",
   "license": "MIT",
