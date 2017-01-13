@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Home - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-binaries.html">binaries</a><ul class='methods'><li data-type='method'><a href="module-binaries.html#.addBinary">addBinary</a></li><li data-type='method'><a href="module-binaries.html#.getBinaryURL">getBinaryURL</a></li><li data-type='method'><a href="module-binaries.html#.removeBinary">removeBinary</a></li></ul></li><li><a href="module-crud.html">crud</a><ul class='methods'><li data-type='method'><a href="module-crud.html#.create">create</a></li><li data-type='method'><a href="module-crud.html#.destroy">destroy</a></li><li data-type='method'><a href="module-crud.html#.find">find</a></li><li data-type='method'><a href="module-crud.html#.updateAttributes">updateAttributes</a></li></ul></li><li><a href="module-mapreduce.html">mapreduce</a><ul class='methods'><li data-type='method'><a href="module-mapreduce.html#.defineView">defineView</a></li><li data-type='method'><a href="module-mapreduce.html#.destroyByView">destroyByView</a></li><li data-type='method'><a href="module-mapreduce.html#.queryView">queryView</a></li></ul></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-doctype.html">Doctypes and Permissions</a></li><li><a href="tutorial-mapreduce.html">Map Reduce Queries</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+    <section class="readme">
+        <article><h1>cozy-browser-sdk</h1><p><a href="https://cozy.github.io/cozy-browser-sdk/index.html">This document</a> covers the API documentation of the SDK for Cozy apps without a
+server.</p>
+<p>Disclaimer: This is not a tutorial to write Cozy application, if you want to understand how to write apps without a server with Cozy, you can read this <a href="https://dev.cozy.io/clientsideapp.html">tutorial</a>.</p>
+<h2>What is it for?</h2><p><code>cozy-browser-sdk</code> is a javascript library made by Cozy. It enables client-side  applications to easily make requests to the data-system. The Data-system is the data
+storage API of the Cozy.</p>
+<h2>How to use it?</h2><p>You just have to copy a single file (<a href="https://github.com/cozy/cozy-browser-sdk/tree/master/dist">dist/cozysdk-client.js</a>) to your app repository. You can then <code>require</code> it by using any build tool or include it in your html page through a <code>&lt;script&gt;</code> tag.</p>
+<p>We recommend you to follow this <a href="https://dev.cozy.io/clientsideapp.html">tutorial</a> to setup the Cozy SDK tutorial properly.</p>
+<p>You can also use <code>npm</code> (<code>npm install cozysdk-client</code>) and then <code>require</code> it from your JS file:</p>
+<pre class="prettyprint source lang-js"><code>var cozySDK = require('cozysdk-client');</code></pre><h2>What can it do?</h2><ul>
+<li><p>Create, Read, Update, Delete documents (<a href="http://cozy.github.io/cozy-browser-sdk/tutorial-doctype.html">tuto</a>)</p>
+<ul>
+<li><a href="http://cozy.github.io/cozy-browser-sdk/module-crud.html#.create">cozysdk.create</a></li>
+<li><a href="http://cozy.github.io/cozy-browser-sdk/module-crud.html#.find">cozysdk.find</a></li>
+<li><a href="http://cozy.github.io/cozy-browser-sdk/module-crud.html#.updateAttributes">cozysdk.updateAttributes</a></li>
+<li><a href="http://cozy.github.io/cozy-browser-sdk/module-crud.html#.destroy">cozysdk.destroy</a></li>
+</ul>
+</li>
+<li><p>Define and use couchdb views (<a href="http://cozy.github.io/cozy-browser-sdk/tutorial-mapreduce.html">tuto</a>)</p>
+<ul>
+<li><a href="http://cozy.github.io/cozy-browser-sdk/module-mapreduce.html#.defineView">cozysdk.defineView</a></li>
+<li><a href="http://cozy.github.io/cozy-browser-sdk/module-mapreduce.html#.queryView">cozysdk.queryView</a></li>
+<li><a href="http://cozy.github.io/cozy-browser-sdk/module-mapreduce.html#.destroyByView">cozysdk.destroyByView</a></li>
+</ul>
+</li>
+<li><p>Read and Destroy binaries attached to Cozy documents</p>
+<ul>
+<li><a href="http://cozy.github.io/cozy-browser-sdk/module-binaries.html#.getBinaryURL">cozysdk.getBinaryURL</a></li>
+<li><a href="http://cozy.github.io/cozy-browser-sdk/module-binaries.html#.removeBinary">cozysdk.removeBinary</a></li>
+</ul>
+</li>
+</ul>
+<h2>License</h2><p>Cozy Browser SDK is developed by Cozy Cloud and distributed under the MIT license.</p>
+<h2>What is Cozy?</h2><p><img src="https://raw.github.com/cozy/cozy-setup/gh-pages/assets/images/happycloud.png" alt="Cozy Logo"></p>
+<p><a href="https://cozy.io">Cozy</a> is a platform that brings all your web services in the
+same private space.  With it, your web apps and your devices can share data
+easily, providing you
+with a new experience. You can install Cozy on your own hardware where no one
+profiles you.</p>
+<h2>Community</h2><p>You can reach the Cozy Community by:</p>
+<ul>
+<li>Chatting with us on IRC #cozycloud on irc.freenode.net</li>
+<li>Posting on our <a href="https://forum.cozy.io/">Forum</a></li>
+<li>Posting issues on the <a href="https://github.com/cozy/">Github repos</a></li>
+<li>Mentioning us on <a href="https://twitter.com/mycozycloud">Twitter</a></li>
+</ul></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Jan 13 2017 16:16:32 GMT+0100 (CET) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

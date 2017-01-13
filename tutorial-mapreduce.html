@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Tutorial: Map Reduce Queries - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-binaries.html">binaries</a><ul class='methods'><li data-type='method'><a href="module-binaries.html#.addBinary">addBinary</a></li><li data-type='method'><a href="module-binaries.html#.getBinaryURL">getBinaryURL</a></li><li data-type='method'><a href="module-binaries.html#.removeBinary">removeBinary</a></li></ul></li><li><a href="module-crud.html">crud</a><ul class='methods'><li data-type='method'><a href="module-crud.html#.create">create</a></li><li data-type='method'><a href="module-crud.html#.destroy">destroy</a></li><li data-type='method'><a href="module-crud.html#.find">find</a></li><li data-type='method'><a href="module-crud.html#.updateAttributes">updateAttributes</a></li></ul></li><li><a href="module-mapreduce.html">mapreduce</a><ul class='methods'><li data-type='method'><a href="module-mapreduce.html#.defineView">defineView</a></li><li data-type='method'><a href="module-mapreduce.html#.destroyByView">destroyByView</a></li><li data-type='method'><a href="module-mapreduce.html#.queryView">queryView</a></li></ul></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-doctype.html">Doctypes and Permissions</a></li><li><a href="tutorial-mapreduce.html">Map Reduce Queries</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Tutorial: Map Reduce Queries</h1>
+    
+
+    <section>
+
+<header>
+    
+
+    <h2>Map Reduce Queries</h2>
+</header>
+
+<article>
+    <h2>Map / Reduce requests</h2><h2>DefineView : create an index on your data.</h2><p>You can create several view for each docType.</p>
+<p>A view is composed of a map function and an optional reduce function.
+The map and reduce functions can be passed as string or as a <code>Function</code> object.
+The map function is applied to every document of a given docType.
+In this function, you can <strong>emit(key, value)</strong>
+This (key, value) pair is called an entry.
+The entry are stored sorted by key in an index.
+You can emit 0, 1 or N times for each doc.</p>
+<h4>I just want to sort notes by date</h4><p>First, define your view (you can see it as a query where each result is indexed,
+that's why we need to declare it before using it):</p>
+<pre class="prettyprint source lang-javascript"><code>cozysdk.defineView('Note', 'bydate', function (){
+    emit(doc.date, doc);
+});</code></pre><p>And then we can query the view:</p>
+<pre class="prettyprint source lang-javascript"><code>cozysdk.queryView('doctype', 'bydate', {});
+// It will give you all documents for your doc type (here Note) sorted by date.</code></pre><h4>More complex example</h4><pre class="prettyprint source lang-javascript"><code>cozysdk.defineView('doctype', 'myview', function complexMap(){
+    // oscar doesnt want to be included
+    if(!doc.owner == 'oscar') {
+        // always be careful : docs may not have all the fields you expect.
+        if(doc.tags && doc.tags.forEach){
+            doc.tags.forEach(function(tag){
+                // the emit(key, value) function fill up couchdb index
+                emit(tag.toLowerCase(), doc.someValue);
+            }
+        }
+    }
+});</code></pre><pre class="prettyprint source lang-json"><code>[
+    { &quot;_id&quot;: &quot;doc1&quot;, &quot;owner&quot;: &quot;oscar&quot;, &quot;tags&quot;: [&quot;tagA&quot;]      , &quot;someValue&quot;: 7},
+    { &quot;_id&quot;: &quot;doc2&quot;, &quot;owner&quot;: &quot;jane&quot;,  &quot;tags&quot;: [&quot;tagA&quot;, &quot;tagB&quot;] ,
+                                                                &quot;someValue&quot;: 8},
+    { &quot;_id&quot;: &quot;doc3&quot;, &quot;owner&quot;: &quot;john&quot;,  &quot;tags&quot;: [&quot;taga&quot;]      , &quot;someValue&quot;: 9},
+    { &quot;_id&quot;: &quot;doc4&quot;, &quot;owner&quot;: &quot;david&quot;, &quot;tags&quot;: []         , &quot;someValue&quot;: 10}
+]</code></pre><p>Will generate the following index</p>
+<pre class="prettyprint source"><code>|   key  | value |  id  |
+|--------|-------|------|
+| taga   | 8     | doc2 |
+| taga   | 9     | doc3 |
+| tagb   | 8     | doc2 |</code></pre><p>You can see that</p>
+<ul>
+<li><strong>doc1</strong> has been discarded because its owner is oscar</li>
+<li><strong>doc2</strong> has generated two entries</li>
+<li><strong>doc2</strong> has generated one entry</li>
+<li><strong>doc4</strong> has not generated any entry</li>
+<li>Entries get sorted by their key</li>
+</ul>
+<p>You can emit any value, including arrays. So if you wanted to sort by owner and date, you can</p>
+<pre class="prettyprint source lang-javascript"><code>emit([doc.owner, doc.date], doc.someValue)</code></pre><h2>Querying views</h2><p>Once we have defined a view, we can then query it.</p>
+<p>To get all entries for a key, we can use the <strong>key</strong> query parameter.</p>
+<pre class="prettyprint source lang-javascript"><code>cozysdk.queryView('doctype', 'myview', {key: &quot;tagb&quot;})
+//-> {key: 'tagb', value: 8, id: 'doc2'}</code></pre><p><strong>Key filtering</strong></p>
+<ul>
+<li>If you pass no parameters, you will get every entries for this view.</li>
+<li>To get entries for several keys at once, we can use the <strong>keys</strong> parameter.</li>
+<li>To get entries for a range of keys, we can use the <strong>startkey</strong> &amp; <strong>endkey</strong> parameters.</li>
+</ul>
+<p><strong>Key sorting</strong></p>
+<p>To reverse the sorting order, use the <strong>descending</strong> query params. Beware, that <strong>startkey</strong> and <strong>endkey</strong> will need to be reversed.</p>
+<p><strong>Pagination</strong></p>
+<p>You can use the <strong>skip</strong> parameters to discard some results from the beginning
+and <strong>limit</strong> to discard some results from the end. It is however cleaner to
+paginate using <strong>startkey</strong> and <strong>endkey</strong>.</p>
+<p><strong>Returned values</strong></p>
+<p>By default, query only returns key and values. You can use the <strong>include_docs</strong> parameter to include the documents with the results.</p>
+<p><strong>Destroy</strong></p>
+<p>You can replace queryView by  <a href="module-mapreduce.html#.destroyByView">destroyByView</a> to destroy documents instead of retrieving them.</p>
+<h2>Some SQL equivalents</h2><pre class="prettyprint source lang-SQL"><code>SELECT title FROM notes WHERE author=john SORT BY date</code></pre><pre class="prettyprint source lang-javascript"><code>map    function(doc) { emit( [doc.author, doc.date], doc.title ); }
+query  {&quot;startkey&quot;: [&quot;john&quot;], &quot;endkey&quot;: [&quot;john&quot;, {}]}
+// {} is greater than any string in couchdb sort order.</code></pre><h2>Troubleshooting</h2><p><strong>Map &amp; Reduce functions are executed in couchdb server.</strong></p>
+<p>They can't use a function from outside of themselves. Inline all tools you may
+need.</p>
+<p><strong>BAD</strong></p>
+<pre class="prettyprint source"><code>function isPair(x) { return x % 2; }
+var map = function (doc){
+    if(isPair(doc.field) emit(doc.id)
+}
+cozysdk.defineView('doctype', 'pair', map)</code></pre><p><strong>GOOD</strong></p>
+<pre class="prettyprint source"><code>var map = function (doc){
+    if(doc.field % 2) emit(doc.id)
+}
+cozysdk.defineView('doctype', 'pair', map)</code></pre><p><strong>Map &amp; Reduce functions can be applied to weird documents.</strong></p>
+<p>Beware of null pointers, it may make the view crash.</p>
+<ul>
+<li><strong>BAD</strong> : <code>emit(doc.field.info)</code></li>
+<li><strong>GOOD</strong>: <code>if(doc.field) emit(doc.field.info)</code></li>
+</ul>
+</article>
+
+</section>
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Jan 13 2017 16:16:32 GMT+0100 (CET) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
