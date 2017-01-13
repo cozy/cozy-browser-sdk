@@ -1,6 +1,6 @@
 ## Map / Reduce requests
 
-## DefineMapReduceView : create an index on your data.
+## DefineView : create an index on your data.
 
 You can create several view for each docType.
 
@@ -18,7 +18,7 @@ First, define your view (you can see it as a query where each result is indexed,
 that's why we need to declare it before using it):
 
 ```javascript
-cozysdk.defineMapReduceView('Note', 'bydate', function (){
+cozysdk.defineView('Note', 'bydate', function (){
     emit(doc.date, doc);
 });
 ```
@@ -31,7 +31,7 @@ cozysdk.queryView('doctype', 'bydate', {});
 
 #### More complex example
 ```javascript
-cozysdk.defineMapReduceView('doctype', 'myview', function complexMap(){
+cozysdk.defineView('doctype', 'myview', function complexMap(){
     // oscar doesnt want to be included
     if(!doc.owner == 'oscar') {
         // always be careful : docs may not have all the fields you expect.
@@ -135,7 +135,7 @@ function isPair(x) { return x % 2; }
 var map = function (doc){
     if(isPair(doc.field) emit(doc.id)
 }
-cozysdk.defineMapReduceView('doctype', 'pair', map)
+cozysdk.defineView('doctype', 'pair', map)
 ```
 
 **GOOD**
@@ -143,7 +143,7 @@ cozysdk.defineMapReduceView('doctype', 'pair', map)
 var map = function (doc){
     if(doc.field % 2) emit(doc.id)
 }
-cozysdk.defineMapReduceView('doctype', 'pair', map)
+cozysdk.defineView('doctype', 'pair', map)
 ```
 
 **Map & Reduce functions can be applied to weird documents.**

@@ -30,7 +30,7 @@ var cozySDK = require('cozysdk-client');
   - [cozysdk.destroy](http://cozy.github.io/cozy-browser-sdk/module-crud.html#.destroy)
 
 - Define and use couchdb views ([tuto](http://cozy.github.io/cozy-browser-sdk/tutorial-mapreduce.html))
-  - [cozysdk.defineMapReduceView](http://cozy.github.io/cozy-browser-sdk/module-mapreduce.html#.defineMapReduceView)
+  - [cozysdk.defineView](http://cozy.github.io/cozy-browser-sdk/module-mapreduce.html#.defineView)
   - [cozysdk.queryView](http://cozy.github.io/cozy-browser-sdk/module-mapreduce.html#.queryView)
   - [cozysdk.destroyByView](http://cozy.github.io/cozy-browser-sdk/module-mapreduce.html#.destroyByView)
 

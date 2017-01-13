@@ -336,7 +336,7 @@ cozysdk.destroy = crud.destroy;
  MapReduce Views Management
  */
 
-cozysdk.defineView = requests.defineMapReduceView;
+cozysdk.defineView = requests.defineView;
 
 cozysdk.queryView = requests.queryView;
 
@@ -353,7 +353,7 @@ cozysdk.destroyBinary = binaries.deleteBinary;
 
 cozysdk.getBinaryURL = binaries.getBinaryURL;
 
-cozysdk.defineRequest = requests.defineMapReduceView;
+cozysdk.defineRequest = requests.defineView;
 
 cozysdk.run = requests.queryView;
 
@@ -411,15 +411,15 @@ Define a map/reduce request for a given doc type.
 
 @example <caption>callback</caption>
 byTitle = function(doc) { emit(doc.title); }
-cozysdk.defineMapReduceView('Note', 'all', byTitle, function(err){
+cozysdk.defineView('Note', 'all', byTitle, function(err){
     // view has been created
 });
 @example <caption>promise</caption>
 byTitle = function(doc) { emit(doc.title); }
-cozysdk.defineMapReduceView('Note', 'all', byTitle)
+cozysdk.defineView('Note', 'all', byTitle)
  */
 
-module.exports.defineMapReduceView = promiser(function(docType, name, request, callback) {
+module.exports.defineView = promiser(function(docType, name, request, callback) {
   var map, path, reduce, reduceArgsAndBody, view, _ref;
   if ((_ref = typeof request) === 'function' || _ref === 'string') {
     request = {

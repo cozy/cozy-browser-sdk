@@ -36,14 +36,14 @@ Define a map/reduce request for a given doc type.
 
 @example <caption>callback</caption>
 byTitle = function(doc) { emit(doc.title); }
-cozysdk.defineMapReduceView('Note', 'all', byTitle, function(err){
+cozysdk.defineView('Note', 'all', byTitle, function(err){
     // view has been created
 });
 @example <caption>promise</caption>
 byTitle = function(doc) { emit(doc.title); }
-cozysdk.defineMapReduceView('Note', 'all', byTitle)
+cozysdk.defineView('Note', 'all', byTitle)
 ###
-module.exports.defineMapReduceView = promiser (docType, name, request, \
+module.exports.defineView = promiser (docType, name, request, \
                                                                   callback) ->
     request = map: request if typeof(request) in ['function', 'string']
     {map, reduce} = request

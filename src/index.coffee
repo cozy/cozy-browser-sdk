@@ -14,7 +14,7 @@ cozysdk.destroy = crud.destroy
 ###*
  MapReduce Views Management
 ###
-cozysdk.defineView = requests.defineMapReduceView
+cozysdk.defineView = requests.defineView
 cozysdk.queryView = requests.queryView
 cozysdk.destroyByView = requests.destroyByView
 
@@ -27,7 +27,7 @@ cozysdk.getBinaryURL = binaries.getBinaryURL
 
 
 # retrocompatibility
-cozysdk.defineRequest = requests.defineMapReduceView
+cozysdk.defineRequest = requests.defineView
 cozysdk.run = requests.queryView
 cozysdk.destroyRequest = requests.destroyByView
 cozysdk.deleteFile = (id, name, cb) -> binaries.deleteBinary null, id, name, cb
